@@ -7,16 +7,21 @@ interface Joke {
   punchline: string;
 }
 
+interface Quote {
+  quote : string;
+}
+
 function App() {
-  const [joke, setJoke] = useState<Joke>();
+  const [joke, setJoke] = useState<Quote>();
 
   useEffect(() => {
     const fetchJoke = async () => {
       const response = await fetch(
-        "https://official-joke-api.appspot.com/jokes/general/random"
+        "https://api.kanye.rest"
       );
-      const jsonBody: Joke[] = await response.json();
-      setJoke(jsonBody[0]);
+      const jsonBody: Quote = await response.json();
+      console.log(jsonBody)
+      setJoke(jsonBody);
     };
 
     fetchJoke();
@@ -42,10 +47,7 @@ function App() {
         // Exploiting that feature to conditional render JSX!
         <>
           <p>
-            <b>{joke.setup}</b>
-          </p>
-          <p>
-            <i>{joke.punchline}</i>
+            <b>{joke.quote}</b>
           </p>
         </>
       )}
